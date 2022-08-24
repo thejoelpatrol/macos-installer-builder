@@ -43,7 +43,7 @@ PRODUCT=__PRODUCT__
 
 echo "Application uninstalling process started"
 # remove link to shorcut file
-find "/usr/local/bin/" -name "__PRODUCT__-__VERSION__" | xargs rm
+rm /usr/local/mount_fusefs_hfs
 if [ $? -eq 0 ]
 then
   echo "[1/3] [DONE] Successfully deleted shortcut links"
@@ -60,8 +60,7 @@ else
   echo "[2/3] [ERROR] Could not delete application informations" >&2
 fi
 
-#remove application source distribution
-[ -e "/Library/${PRODUCT}/${VERSION}" ] && rm -rf "/Library/${PRODUCT}/${VERSION}"
+[ -e "/Library/Filesystems/fusefs_hfs.fs" ] && rm -rf "/Library/Filesystems/fusefs_hfs.fs"
 if [ $? -eq 0 ]
 then
   echo "[3/3] [DONE] Successfully deleted application"

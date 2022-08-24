@@ -117,9 +117,9 @@ copyBuildDirectory() {
     mkdir -p "${TARGET_DIRECTORY}/darwinpkg"
 
     #Copy cellery product to /Library/Cellery
-    mkdir -p "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
-    cp -a "$SCRIPTPATH"/application/. "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
-    chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/${PRODUCT}/${VERSION}
+    mkdir -p "${TARGET_DIRECTORY}"/darwinpkg/Library/Filesystems
+    cp -a "$SCRIPTPATH"/application/. "${TARGET_DIRECTORY}"/darwinpkg/Library/Filesystems
+    chmod -R 755 "${TARGET_DIRECTORY}"/darwinpkg/Library/Filesystems
 
     rm -rf "${TARGET_DIRECTORY}/package"
     mkdir -p "${TARGET_DIRECTORY}/package"
@@ -170,6 +170,8 @@ function createInstaller() {
         [[ $answer == "n" || $answer == "N" || $answer == "" ]] && log_info "Skipped signing process." && FLAG=false && break
         echo "Please answer with 'y' or 'n'"
     done
+    echo "Cert ID is in format: John Smith (A123ABCDE1)"
+    echo "Find with $ security -v find-identity"
     [[ $FLAG == "true" ]] && signProduct ${PRODUCT}-macos-installer-x64-${VERSION}.pkg
     log_info "Application installer generation steps finished."
 }
